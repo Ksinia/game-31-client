@@ -5,7 +5,13 @@ import { connect } from "react-redux";
 
 class LoginContainer extends Component {
   render() {
-    return <FormContainer type="login" Display={Login} />;
+    return (
+      <FormContainer
+        type='login'
+        Display={Login}
+        history={this.props.history}
+      />
+    );
   }
 }
 
