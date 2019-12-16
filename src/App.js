@@ -1,18 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login";
+import LoginContainer from "./components/LoginContainer";
 import Signup from "./components/Signup";
+import { connect } from "react-redux";
+import LobbyContainer from "./components/LobbyContainer";
+import Footer from "./components/Footer";
 
-function App() {
-  return (
-    <div className='App'>
-      <Switch>
-        <Route path='/signup' component={Signup} />
-        <Route path='/' component={Login} />
-      </Switch>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Switch>
+          <Route path="/signup" component={Signup} />
+          <Route
+            path="/"
+            component={this.props.user ? LobbyContainer : LoginContainer}
+          />
+        </Switch>
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+export default connect(mapStateToProps)(App);
