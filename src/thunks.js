@@ -1,6 +1,5 @@
 import superagent from "superagent";
-
-const baseUrl = "https://game-31.herokuapp.com";
+import { url as baseUrl } from "./url";
 
 export const loginSignupFunction = (
   type,

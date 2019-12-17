@@ -6,8 +6,19 @@ import SignupContainer from "./components/SignupContainer";
 import { connect } from "react-redux";
 import LobbyContainer from "./components/LobbyContainer";
 import Footer from "./components/Footer";
+import { url } from "./url";
 
 class App extends Component {
+  stream = new EventSource(`${url}/stream`);
+
+  componentDidMount() {
+    this.stream.onmessage = event => {
+      const { data } = event;
+      const action = JSON.parse(data);
+      console.log(action);
+    };
+  }
+
   render() {
     return (
       <div className="App">
