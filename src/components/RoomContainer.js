@@ -23,7 +23,7 @@ class RoomContainer extends Component {
       <div style={{ background: `${this.state.color}` }}>
         <p>{this.props.room.name}</p>
         <p>Max players: {this.props.room.maxPlayers}</p>
-        <p>Owner: </p>
+        <p>Owner: {this.props.room.owner}</p>
         <p>Waiting for players</p>
         <p>In game</p>
         <button>Enter</button>

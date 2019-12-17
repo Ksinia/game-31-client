@@ -4,7 +4,7 @@ export default function reducer(state = [], action = {}) {
       return action.payload;
     }
     case "NEW_ROOM": {
-      return [action.payload, ...state];
+      return [...state, action.payload];
     }
     default:
       return state;

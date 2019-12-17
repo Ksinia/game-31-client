@@ -17,7 +17,7 @@ function Lobby(props) {
 
   return (
     <div>
-      <h1>Welcome to the lobby</h1>
+      <h1>Welcome to the lobby, {props.name}</h1>
       <p>Please create a new room or enter existing room.</p>
       <form onSubmit={props.onSubmit}>
         <label htmlFor="name">Please give your room a name: </label>

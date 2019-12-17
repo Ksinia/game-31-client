@@ -13,7 +13,10 @@ class LobbyContainer extends Component {
   onSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await superagent.post(`${url}/room`).send(this.state);
+      const response = await superagent
+        .post(`${url}/room`)
+        .set("Authorization", `Bearer ${this.props.user.jwt}`)
+        .send(this.state);
       console.log("response test: ", response);
     } catch (error) {
       console.warn("error test:", error);
@@ -31,6 +34,7 @@ class LobbyContainer extends Component {
         onSubmit={this.onSubmit}
         values={this.state}
         rooms={this.props.lobby}
+        name={this.props.user.name}
       />
     );
   }
@@ -38,7 +42,8 @@ class LobbyContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    lobby: state.lobby
+    lobby: state.lobby,
+    user: state.user
   };
 }
 export default connect(mapStateToProps)(LobbyContainer);
