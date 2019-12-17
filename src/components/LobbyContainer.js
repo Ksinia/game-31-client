@@ -1,45 +1,44 @@
 import React, { Component } from "react";
 import superagent from "superagent";
 import { url } from "../url";
+import Lobby from "./Lobby";
+import { connect } from "react-redux";
 
 class LobbyContainer extends Component {
   state = {
-    text: ""
+    name: "",
+    maxPlayers: ""
   };
 
   onSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await superagent.post(`${url}/room`).send({
-        name: this.state.text
-      });
+      const response = await superagent.post(`${url}/room`).send(this.state);
       console.log("response test: ", response);
     } catch (error) {
       console.warn("error test:", error);
-    } //just yellow warnings in console
+    }
   };
 
   onChange = event => {
-    const { value } = event.target;
-    this.setState({ text: value });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
     return (
-      <div>
-        <h1>Here is our lobby</h1>
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            onChange={this.onChange}
-            value={this.state.text}
-            autoFocus
-          ></input>
-          <button>Submit</button>
-        </form>
-      </div>
+      <Lobby
+        onChange={this.onChange}
+        onSubmit={this.onSubmit}
+        values={this.state}
+        rooms={this.props.lobby}
+      />
     );
   }
 }
 
-export default LobbyContainer;
+function mapStateToProps(state) {
+  return {
+    lobby: state.lobby
+  };
+}
+export default connect(mapStateToProps)(LobbyContainer);
