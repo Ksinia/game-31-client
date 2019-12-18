@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import LobbyContainer from "./components/LobbyContainer";
 import Footer from "./components/Footer";
 import { url } from "./url";
+import RoomDetailsPageContainer from "./components/RoomDetailsPageContainer";
 
 class App extends Component {
   stream = new EventSource(`${url}/stream`);
@@ -25,6 +26,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route path="/signup" component={SignupContainer} />
+          <Route path="/room/:room" component={RoomDetailsPageContainer} />
           <Route
             path="/"
             component={this.props.user ? LobbyContainer : LoginContainer}
