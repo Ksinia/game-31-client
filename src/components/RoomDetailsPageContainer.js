@@ -37,15 +37,17 @@ class RoomDetailsPageContainer extends Component {
             <h2>
               Welcome to the room {this.roomId}, {this.props.user.name}
             </h2>
-            {room.users.find(user => user.id == this.props.user.id) ? (
+            {room.users.find(user => user.id == this.props.user.id) && (
               <button name="exit" onClick={this.onClick}>
                 Exit the game
               </button>
-            ) : (
-              <button name="join" onClick={this.onClick}>
-                Join the game
-              </button>
             )}
+            {!room.users.find(user => user.id == this.props.user.id) &&
+              room.users.length < room.maxPlayers && (
+                <button name="join" onClick={this.onClick}>
+                  Join the game
+                </button>
+              )}
             <Link to="/">
               <button>Go back to the lobby</button>
             </Link>

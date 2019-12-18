@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 
 class LobbyContainer extends Component {
   state = {
-    name: "",
-    maxPlayers: ""
+    name: `${this.props.user.name}'s room`,
+    maxPlayers: 2
   };
 
   onSubmit = async event => {

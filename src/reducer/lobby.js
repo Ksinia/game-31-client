@@ -4,7 +4,16 @@ export default function reducer(state = [], action = {}) {
       return action.payload;
     }
     case "NEW_ROOM": {
-      return [...state, action.payload];
+      if (action.payload.oldRoom) {
+        return [...state, action.payload.newRoom].map(room => {
+          if (room.id == action.payload.oldRoom.id) {
+            return action.payload.oldRoom;
+          } else {
+            return room;
+          }
+        });
+      }
+      return [...state, action.payload.newRoom];
     }
     case "UPDATED_ROOMS": {
       return state.map(room => {

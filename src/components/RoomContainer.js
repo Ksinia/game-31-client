@@ -20,7 +20,7 @@ class RoomContainer extends Component {
   }
 
   render() {
-    const { id, name, maxPlayers, users, owner } = this.props.room;
+    const { id, name, maxPlayers, users } = this.props.room;
     return (
       <Link to={`/room/${id}`}>
         <div style={{ background: `${this.state.color}` }}>
@@ -34,7 +34,6 @@ class RoomContainer extends Component {
               })}
             </ul>
           )}
-          {/* <p>Owner: {owner}</p> */}
           {users &&
             (maxPlayers > users.length ? (
               <p>Waiting for players</p>

@@ -8,7 +8,7 @@ function Lobby(props) {
     <GridList cellHeight={220} cols={6}>
       {props.rooms.map(room => (
         <GridListTile key={room.id} cols={2}>
-          room => <RoomContainer room={room} />
+          <RoomContainer room={room} />
         </GridListTile>
       ))}
     </GridList>
@@ -29,6 +29,7 @@ function Lobby(props) {
           autoFocus
         ></input>
         <label htmlFor="maxPlayers">
+          {" "}
           Please specify the quantity of players (from 2 to 4):{" "}
         </label>
         <input
