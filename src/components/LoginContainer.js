@@ -7,9 +7,10 @@ class LoginContainer extends Component {
   render() {
     return (
       <FormContainer
-        type='login'
+        type="login"
         Display={Login}
         history={this.props.history}
+        error={this.props.error}
       />
     );
   }
