@@ -26,7 +26,7 @@ class RoomContainer extends Component {
         <div style={{ background: `${this.state.color}` }}>
           <p>{name}</p>
           <p>Max players: {maxPlayers}</p>
-          {users.length > 0 && (
+          {users && users.length > 0 && (
             <ul>
               <p>Current players: </p>
               {users.map(user => {
@@ -34,12 +34,13 @@ class RoomContainer extends Component {
               })}
             </ul>
           )}
-          <p>Owner: {owner}</p>
-          {maxPlayers > users.length ? (
-            <p>Waiting for players</p>
-          ) : (
-            <p>Ready for the game</p>
-          )}
+          {/* <p>Owner: {owner}</p> */}
+          {users &&
+            (maxPlayers > users.length ? (
+              <p>Waiting for players</p>
+            ) : (
+              <p>Ready for the game</p>
+            ))}
         </div>
       </Link>
     );
