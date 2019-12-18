@@ -4,7 +4,6 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 
 function Lobby(props) {
-  const styles = Object.assign({});
   const rooms = (
     <GridList cellHeight={220} cols={6}>
       {props.rooms.map(room => (

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class RoomContainer extends Component {
   state = {
@@ -19,15 +20,28 @@ class RoomContainer extends Component {
   }
 
   render() {
+    const { id, name, maxPlayers, users, owner } = this.props.room;
     return (
-      <div style={{ background: `${this.state.color}` }}>
-        <p>{this.props.room.name}</p>
-        <p>Max players: {this.props.room.maxPlayers}</p>
-        <p>Owner: {this.props.room.owner}</p>
-        <p>Waiting for players</p>
-        <p>In game</p>
-        <button>Enter</button>
-      </div>
+      <Link to={`/room/${id}`}>
+        <div style={{ background: `${this.state.color}` }}>
+          <p>{name}</p>
+          <p>Max players: {maxPlayers}</p>
+          {users.length > 0 && (
+            <ul>
+              <p>Current players: </p>
+              {users.map(user => {
+                return <li key={user.id}>{user.name}</li>;
+              })}
+            </ul>
+          )}
+          <p>Owner: {owner}</p>
+          {maxPlayers > users.length ? (
+            <p>Waiting for players</p>
+          ) : (
+            <p>Ready for the game</p>
+          )}
+        </div>
+      </Link>
     );
   }
 }
