@@ -1,0 +1,24 @@
+.room-tile {
+  padding: 1em;
+  margin: 1em 2em 1em 2em;
+  color: black;
+  text-align: left;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+}
+a {
+  text-decoration: none;
+}
+.title {
+  font-weight: bold;
+}
+
+.MuiGridListTile-root {
+  height: fit-content !important;
+}
+
+.description {
+  margin-right: 2em;
+}

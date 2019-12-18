@@ -1,14 +1,21 @@
 import React from "react";
-import RoomContainer from "./RoomContainer";
+import RoomTile from "./RoomTile";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import { colors } from "../colors";
 
 function Lobby(props) {
   const rooms = (
-    <GridList cellHeight={220} cols={6}>
+    <GridList
+      // cellHeight={220}
+      cols={6}
+    >
       {props.rooms.map(room => (
         <GridListTile key={room.id} cols={2}>
-          <RoomContainer room={room} />
+          <RoomTile
+            style={{ background: colors[room.id % colors.length] }}
+            room={room}
+          />
         </GridListTile>
       ))}
     </GridList>
