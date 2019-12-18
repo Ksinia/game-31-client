@@ -33,9 +33,15 @@ class FormContainer extends Component {
         onChange={this.onChange}
         onSubmit={this.onSubmit}
         values={this.state}
+        error={this.props.error}
       />
     );
   }
 }
 
-export default connect()(FormContainer);
+function mapStateToProps(state) {
+  return {
+    error: state.error
+  };
+}
+export default connect(mapStateToProps)(FormContainer);

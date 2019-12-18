@@ -89,6 +89,13 @@ export default function SignUp(props) {
                 onChange={props.onChange}
               />
             </Grid>
+            {/*render error messages from server*/}
+            {props.error && (
+              <Grid item xs={12} style={{ color: "red" }}>
+                {props.error.message}
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -105,7 +112,7 @@ export default function SignUp(props) {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justify="center">
             <Grid item>
               <Link href="/" variant="body2">
                 Already have an account? Sign in

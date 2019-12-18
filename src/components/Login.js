@@ -86,6 +86,8 @@ export default function SignIn(props) {
             onChange={props.onChange}
             value={props.values.password}
           />
+          {/*render error messages from server*/}
+          {props.error && <p style={{ color: "red" }}>{props.error.message}</p>}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -99,7 +101,7 @@ export default function SignIn(props) {
           >
             Log In
           </Button>
-          <Grid container>
+          <Grid container justify="center">
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}

@@ -10,6 +10,7 @@ class SignupContainer extends Component {
         type="signup"
         Display={Signup}
         history={this.props.history}
+        error={this.props.error}
       />
     );
   }
