@@ -63,7 +63,7 @@ class RoomDetailsPage extends Component {
                 </button>
               )}
             {room.users.find(user => user.id == this.props.user.id) &&
-              room.users.length == room.maxPlayers && (
+              room.phase == "ready" && (
                 <button name="start" onClick={this.onClick}>
                   Start game
                 </button>
@@ -73,11 +73,15 @@ class RoomDetailsPage extends Component {
             </Link>
             <div className="details">
               <div className="description2">
-                {room.maxPlayers > room.users.length ? (
+                {/* {room.maxPlayers > room.users.length ? (
                   <p>Waiting for players</p>
                 ) : (
                   <p>Ready for the game</p>
-                )}
+                )} */}
+                {room.phase == "waiting" && <p>Waiting for players</p>}
+                {room.phase == "ready" && <p>Ready for the game</p>}
+                {room.phase == "started" && <p>Game started</p>}
+                {room.phase == "finished" && <p>Game finished</p>}
                 <p>
                   {room.users.length} of {room.maxPlayers} players in the game
                 </p>
@@ -90,6 +94,48 @@ class RoomDetailsPage extends Component {
                   })}
               </div>
             </div>
+            {room.phase == "started" && (
+              <section className="table">
+                <div className="others">
+                  {new Array(room.users.length - 1).fill(1).map(() => {
+                    return (
+                      <div className="someone">
+                        {new Array(3).fill(1).map(() => (
+                          <img src={require("../images/red_back.png")} />
+                        ))}
+                      </div>
+                    );
+                  })}
+                  {/* {room.cards.reduce((list, card) => {
+if (card.user)
+                })} */}
+                </div>
+                <div className="pot"></div>
+                {room.cards
+                  .filter(card => {
+                    return !card.userId;
+                  })
+                  .map(card => {
+                    return (
+                      <img
+                        key={card.id}
+                        src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                      />
+                    );
+                  })}
+                {/* {room.cards.reduce((list, card) => {
+                  if (!card.userId) {
+                    return [
+                      ...list,
+                      <img
+                        src={require(`../images/${card.face}${card.suit}.png`)}
+                      />
+                    ];
+                  } 
+                }, [])} */}
+                <div className="hand"></div>
+              </section>
+            )}
           </div>
         )}
       </div>

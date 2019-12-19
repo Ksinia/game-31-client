@@ -29,6 +29,15 @@ export default function reducer(state = [], action = {}) {
         }
       });
     }
+    case "UPDATE_GAME": {
+      return state.map(room => {
+        if (action.payload.id == room.id) {
+          return action.payload;
+        } else {
+          return room;
+        }
+      });
+    }
     default:
       return state;
   }
