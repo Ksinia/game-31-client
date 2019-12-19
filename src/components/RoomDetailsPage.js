@@ -11,19 +11,32 @@ class RoomDetailsPage extends Component {
   onClick = async event => {
     // when button name is join, we send current room id,
     // when button name is exit, we send room is as undefined
-    console.log(event.target.name);
     let newRoomId = undefined;
-    if (event.target.name == "join") {
+    console.log(this.roomId);
+    if (event.target.name === "join") {
       newRoomId = this.roomId;
     }
-    try {
-      const response = await superagent
-        .put(`${url}/join`)
-        .set("Authorization", `Bearer ${this.props.user.jwt}`)
-        .send({ newRoomId });
-      console.log("response test: ", response);
-    } catch (error) {
-      console.warn("error test:", error);
+    if (event.target.name === "start") {
+      console.log("request test: ", { roomId: this.roomId });
+      try {
+        const response = await superagent
+          .put(`${url}/start`)
+          .set("Authorization", `Bearer ${this.props.user.jwt}`)
+          .send({ roomId: this.roomId });
+        console.log("response test: ", response);
+      } catch (error) {
+        console.warn("error test:", error);
+      }
+    } else {
+      try {
+        const response = await superagent
+          .put(`${url}/join`)
+          .set("Authorization", `Bearer ${this.props.user.jwt}`)
+          .send({ newRoomId });
+        console.log("response test: ", response);
+      } catch (error) {
+        console.warn("error test:", error);
+      }
     }
   };
 
@@ -47,6 +60,12 @@ class RoomDetailsPage extends Component {
               room.users.length < room.maxPlayers && (
                 <button name="join" onClick={this.onClick}>
                   Join the game
+                </button>
+              )}
+            {room.users.find(user => user.id == this.props.user.id) &&
+              room.users.length == room.maxPlayers && (
+                <button name="start" onClick={this.onClick}>
+                  Start game
                 </button>
               )}
             <Link to="/">
