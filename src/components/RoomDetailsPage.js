@@ -10,8 +10,8 @@ class RoomDetailsPage extends Component {
 
   onClick = async event => {
     // when button name is join, we send current room id,
-    // when button name is exit, we send room is as undefined
-    let newRoomId = undefined;
+    // when button name is exit, we send room is as null
+    let newRoomId = null;
     console.log(this.roomId);
     if (event.target.name === "join") {
       newRoomId = this.roomId;
