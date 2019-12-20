@@ -162,8 +162,8 @@ class RoomDetailsPage extends Component {
                       room.users
                         .filter(user => user.id != this.props.user.id)
                         .map(user => {
-                          room.cards
-                            .filter(card => card.userId == user)
+                          return room.cards
+                            .filter(card => card.userId == user.id)
                             .map(card => {
                               return (
                                 <img
