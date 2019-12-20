@@ -47,14 +47,30 @@ class RoomDetailsPage extends Component {
 
   swapCards = async () => {
     console.log(this.state.giveCard, this.state.takeCard);
+    if (this.state.giveCard && this.state.takeCard) {
+      try {
+        const response = await superagent
+          .put(`${url}/turn`)
+          .set("Authorization", `Bearer ${this.props.user.jwt}`)
+          .send({
+            roomId: this.roomId,
+            discard: this.state.giveCard,
+            pick: this.state.takeCard
+          });
+        console.log("response test: ", response);
+        this.setState({ giveCard: null, takeCard: null });
+      } catch (error) {
+        console.warn("error test:", error);
+      }
+    }
+  };
+  pass = async () => {
     try {
       const response = await superagent
-        .put(`${url}/turn`)
+        .put(`${url}/pass`)
         .set("Authorization", `Bearer ${this.props.user.jwt}`)
         .send({
-          roomId: this.roomId,
-          discard: this.state.giveCard,
-          pick: this.state.takeCard
+          roomId: this.roomId
         });
       console.log("response test: ", response);
     } catch (error) {
@@ -64,6 +80,12 @@ class RoomDetailsPage extends Component {
 
   render() {
     const room = this.props.rooms.find(room => room.id == this.roomId);
+    const turnUser =
+      this.props.user &&
+      room.users.find(user => {
+        return user.id == room.turn;
+      });
+
     return (
       <div>
         {!this.props.user ? (
@@ -115,60 +137,103 @@ class RoomDetailsPage extends Component {
                   })}
               </div>
             </div>
-            {room.phase == "started" && (
-              <section className="table">
-                <div className="others">
-                  {new Array(room.users.length - 1)
-                    .fill(1)
-                    .map((x, index, array) => {
-                      return (
-                        <div className="someone" key={index}>
-                          {new Array(3).fill(1).map((x, index, array) => (
-                            <img
-                              key={index}
-                              src={require("../images/red_back.png")}
-                            />
-                          ))}
-                        </div>
-                      );
-                    })}
-                </div>
-                <p>Cards on the table:</p>
-                <div className="pot">
-                  {room.cards
-                    .filter(card => {
-                      return !card.userId;
-                    })
-                    .map(card => {
-                      return (
-                        <img
-                          onClick={this.takeCard}
-                          name={card.id}
-                          key={card.id}
-                          src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
-                        />
-                      );
-                    })}
-                </div>
-                <p>Your cards:</p>
-                <div className="hand">
-                  {room.cards
-                    .filter(card => {
-                      return card.userId == this.props.user.id;
-                    })
-                    .map(card => {
-                      return (
-                        <img
-                          onClick={this.giveCard}
-                          name={card.id}
-                          key={card.id}
-                          src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
-                        />
-                      );
-                    })}
-                </div>
-                <button onClick={this.swapCards}>Confirm</button>
-              </section>
+            {(room.phase == "started" || room.phase == "finished") && (
+              <div className="tableAndInfo">
+                <section className="table">
+                  <div className="others">
+                    {room.phase == "started" &&
+                      new Array(room.users.length - 1)
+                        .fill(1)
+                        .map((x, index, array) => {
+                          return (
+                            <div className="someone" key={index}>
+                              {new Array(3).fill(1).map((x, index, array) => (
+                                <img
+                                  className="not-my-card"
+                                  key={index}
+                                  src={require("../images/red_back.png")}
+                                />
+                              ))}
+                            </div>
+                          );
+                        })}
+                    {room.phase == "finished" &&
+                      room.users
+                        .filter(user => user.id != this.props.user.id)
+                        .map(user => {
+                          room.card
+                            .filter(card => card.userId == user)
+                            .map(card => {
+                              return (
+                                <img
+                                  className="not-my-card"
+                                  name={card.id}
+                                  key={card.id}
+                                  src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                                />
+                              );
+                            });
+                        })}
+                  </div>
+                  <p>Cards on the table:</p>
+                  <div className="pot">
+                    {room.cards
+                      .filter(card => {
+                        return !card.userId;
+                      })
+                      .map(card => {
+                        return (
+                          <img
+                            className={
+                              card.id == this.state.takeCard ? "chosen" : ""
+                            }
+                            onClick={
+                              turnUser.id == this.props.user.id && this.takeCard
+                            }
+                            name={card.id}
+                            key={card.id}
+                            src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                          />
+                        );
+                      })}
+                  </div>
+                  <p>Your cards:</p>
+                  <div className="hand">
+                    {room.cards
+                      .filter(card => {
+                        return card.userId == this.props.user.id;
+                      })
+                      .map(card => {
+                        return (
+                          <img
+                            className={
+                              card.id == this.state.giveCard ? "chosen" : ""
+                            }
+                            onClick={
+                              turnUser.id == this.props.user.id && this.giveCard
+                            }
+                            name={card.id}
+                            key={card.id}
+                            src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                          />
+                        );
+                      })}
+                  </div>
+                </section>
+                <section className="info">
+                  {turnUser.id == this.props.user.id ? (
+                    <p>It's your turn</p>
+                  ) : (
+                    <p>{`It's ${turnUser.name}`}'s turn</p>
+                  )}
+                  {turnUser.id == this.props.user.id && (
+                    <div>
+                      <button onClick={this.swapCards}>Confirm</button>
+                      <button onClick={this.pass}>Pass</button>
+                    </div>
+                  )}
+                </section>
+              </div>
             )}
           </div>
         )}
