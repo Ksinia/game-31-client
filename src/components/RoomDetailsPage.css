@@ -6,16 +6,17 @@
 
 .others {
   display: flex;
-  flex-flow: row;
+  flex-flow: row wrap;
   justify-content: space-evenly;
   max-height: 30%;
+  max-width: 50%;
   margin: auto;
 }
 .pot {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  max-height: 30%;
+  /* max-height: 30%; */
   max-width: 50%;
   margin: auto;
 }
@@ -23,13 +24,16 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  max-height: 30%;
+  /* max-height: 30%; */
   max-width: 50%;
   margin: auto;
 }
 
 .someone {
   height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
 }
 
 img {

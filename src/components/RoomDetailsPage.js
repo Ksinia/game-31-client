@@ -126,7 +126,7 @@ class RoomDetailsPage extends Component {
                 </p>
               </div>
               <div className="players2">
-                <p>Current players: </p>
+                <p>Players: </p>
                 {room.users.length > 0 &&
                   room.users.map(user => {
                     return (
