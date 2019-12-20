@@ -242,6 +242,19 @@ class RoomDetailsPage extends Component {
                         <button onClick={this.pass}>Pass</button>
                       </div>
                     )}
+                  {room.phase == "finished" && (
+                    <div>
+                      Score:
+                      {room.users.map(user => {
+                        const sc = this.props.score[user.id];
+                        return (
+                          <p>
+                            {user.name}: {sc}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  )}
                 </section>
               </div>
             )}
@@ -254,7 +267,8 @@ class RoomDetailsPage extends Component {
 function MapStateToProps(state) {
   return {
     user: state.user,
-    rooms: state.lobby
+    rooms: state.lobby,
+    score: state.score
   };
 }
 export default connect(MapStateToProps)(RoomDetailsPage);
