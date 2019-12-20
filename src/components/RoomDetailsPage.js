@@ -80,6 +80,7 @@ class RoomDetailsPage extends Component {
 
   render() {
     const room = this.props.rooms.find(room => room.id == this.roomId);
+    console.log("room:", room);
     const turnUser =
       this.props.user &&
       room.users.find(user => {
@@ -161,7 +162,7 @@ class RoomDetailsPage extends Component {
                       room.users
                         .filter(user => user.id != this.props.user.id)
                         .map(user => {
-                          room.card
+                          room.cards
                             .filter(card => card.userId == user)
                             .map(card => {
                               return (
@@ -221,17 +222,22 @@ class RoomDetailsPage extends Component {
                   </div>
                 </section>
                 <section className="info">
-                  {turnUser.id == this.props.user.id ? (
-                    <p>It's your turn</p>
-                  ) : (
-                    <p>{`It's ${turnUser.name}`}'s turn</p>
-                  )}
-                  {turnUser.id == this.props.user.id && (
+                  {room.phase == "started" && (
                     <div>
-                      <button onClick={this.swapCards}>Confirm</button>
-                      <button onClick={this.pass}>Pass</button>
+                      {turnUser.id == this.props.user.id ? (
+                        <p>It's your turn</p>
+                      ) : (
+                        <p>{`It's ${turnUser.name}`}'s turn</p>
+                      )}
                     </div>
                   )}
+                  {room.phase == "started" &&
+                    turnUser.id == this.props.user.id && (
+                      <div>
+                        <button onClick={this.swapCards}>Confirm</button>
+                        <button onClick={this.pass}>Pass</button>
+                      </div>
+                    )}
                 </section>
               </div>
             )}
