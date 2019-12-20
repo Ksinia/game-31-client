@@ -44,7 +44,7 @@ img {
 }
 
 .table {
-  max-width: 50%;
+  width: 50%;
   margin: auto;
 }
 
@@ -71,6 +71,7 @@ img {
   vertical-align: center;
   text-align: center;
   margin: 2em;
+  width: 25%;
 }
 
 .chosen {
