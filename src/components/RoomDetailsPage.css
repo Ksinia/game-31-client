@@ -6,7 +6,7 @@
 
 .others {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: space-evenly;
   max-height: 30%;
   max-width: 50%;
@@ -32,8 +32,9 @@
 .someone {
   height: 100%;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: space-evenly;
+  margin: 1em;
 }
 
 img {

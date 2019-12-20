@@ -161,19 +161,23 @@ class RoomDetailsPage extends Component {
                     {room.phase == "finished" &&
                       room.users
                         .filter(user => user.id != this.props.user.id)
-                        .map(user => {
-                          return room.cards
-                            .filter(card => card.userId == user.id)
-                            .map(card => {
-                              return (
-                                <img
-                                  className="not-my-card"
-                                  name={card.id}
-                                  key={card.id}
-                                  src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
-                                />
-                              );
-                            });
+                        .map((user, index, array) => {
+                          return (
+                            <div className="someone" key={index}>
+                              {room.cards
+                                .filter(card => card.userId == user.id)
+                                .map(card => {
+                                  return (
+                                    <img
+                                      className="not-my-card"
+                                      name={card.id}
+                                      key={card.id}
+                                      src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                                    />
+                                  );
+                                })}
+                            </div>
+                          );
                         })}
                   </div>
                   <p>Cards on the table:</p>
