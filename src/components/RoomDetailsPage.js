@@ -6,6 +6,8 @@ import { url } from "../url";
 import "./RoomDetailsPage.css";
 
 class RoomDetailsPage extends Component {
+  state = { giveCard: null, takeCard: null };
+
   roomId = this.props.match.params.room;
 
   onClick = async event => {
@@ -40,6 +42,26 @@ class RoomDetailsPage extends Component {
     }
   };
 
+  giveCard = event => this.setState({ giveCard: event.target.name });
+  takeCard = event => this.setState({ takeCard: event.target.name });
+
+  swapCards = async () => {
+    console.log(this.state.giveCard, this.state.takeCard);
+    try {
+      const response = await superagent
+        .put(`${url}/turn`)
+        .set("Authorization", `Bearer ${this.props.user.jwt}`)
+        .send({
+          roomId: this.roomId,
+          discard: this.state.giveCard,
+          pick: this.state.takeCard
+        });
+      console.log("response test: ", response);
+    } catch (error) {
+      console.warn("error test:", error);
+    }
+  };
+
   render() {
     const room = this.props.rooms.find(room => room.id == this.roomId);
     return (
@@ -47,7 +69,7 @@ class RoomDetailsPage extends Component {
         {!this.props.user ? (
           this.props.history.push("/")
         ) : (
-          <div>
+          <div className="game">
             <h2>
               Welcome to {room.name}, {this.props.user.name}
             </h2>
@@ -73,11 +95,6 @@ class RoomDetailsPage extends Component {
             </Link>
             <div className="details">
               <div className="description2">
-                {/* {room.maxPlayers > room.users.length ? (
-                  <p>Waiting for players</p>
-                ) : (
-                  <p>Ready for the game</p>
-                )} */}
                 {room.phase == "waiting" && <p>Waiting for players</p>}
                 {room.phase == "ready" && <p>Ready for the game</p>}
                 {room.phase == "started" && <p>Game started</p>}
@@ -90,50 +107,67 @@ class RoomDetailsPage extends Component {
                 <p>Current players: </p>
                 {room.users.length > 0 &&
                   room.users.map(user => {
-                    return <p key={user.id}>{user.name}</p>;
+                    return (
+                      <p key={user.id} className="player-name">
+                        {user.name}
+                      </p>
+                    );
                   })}
               </div>
             </div>
             {room.phase == "started" && (
               <section className="table">
                 <div className="others">
-                  {new Array(room.users.length - 1).fill(1).map(() => {
-                    return (
-                      <div className="someone">
-                        {new Array(3).fill(1).map(() => (
-                          <img src={require("../images/red_back.png")} />
-                        ))}
-                      </div>
-                    );
-                  })}
-                  {/* {room.cards.reduce((list, card) => {
-if (card.user)
-                })} */}
+                  {new Array(room.users.length - 1)
+                    .fill(1)
+                    .map((x, index, array) => {
+                      return (
+                        <div className="someone" key={index}>
+                          {new Array(3).fill(1).map((x, index, array) => (
+                            <img
+                              key={index}
+                              src={require("../images/red_back.png")}
+                            />
+                          ))}
+                        </div>
+                      );
+                    })}
                 </div>
-                <div className="pot"></div>
-                {room.cards
-                  .filter(card => {
-                    return !card.userId;
-                  })
-                  .map(card => {
-                    return (
-                      <img
-                        key={card.id}
-                        src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
-                      />
-                    );
-                  })}
-                {/* {room.cards.reduce((list, card) => {
-                  if (!card.userId) {
-                    return [
-                      ...list,
-                      <img
-                        src={require(`../images/${card.face}${card.suit}.png`)}
-                      />
-                    ];
-                  } 
-                }, [])} */}
-                <div className="hand"></div>
+                <p>Cards on the table:</p>
+                <div className="pot">
+                  {room.cards
+                    .filter(card => {
+                      return !card.userId;
+                    })
+                    .map(card => {
+                      return (
+                        <img
+                          onClick={this.takeCard}
+                          name={card.id}
+                          key={card.id}
+                          src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                        />
+                      );
+                    })}
+                </div>
+                <p>Your cards:</p>
+                <div className="hand">
+                  {room.cards
+                    .filter(card => {
+                      return card.userId == this.props.user.id;
+                    })
+                    .map(card => {
+                      return (
+                        <img
+                          onClick={this.giveCard}
+                          name={card.id}
+                          key={card.id}
+                          src={require(`../images/${card.cardObject.face}${card.cardObject.suit}.png`)}
+                        />
+                      );
+                    })}
+                </div>
+                <button onClick={this.swapCards}>Confirm</button>
               </section>
             )}
           </div>

@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 
 export default function Copyright() {
   return (
-    <Box mt={8} className="footer">
+    <Box mt={20} className="footer">
       <Typography variant="body2" color="textSecondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="https://github.com/Ksinia/game-31-server">
