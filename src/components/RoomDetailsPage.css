@@ -3,29 +3,26 @@
   flex-flow: row wrap;
   justify-content: space-evenly;
 }
-
 .others {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  max-width: 100%;
 }
-
 .someone {
-  margin: 0 1em;
+  margin: auto 1em;
 }
-
 img {
-  width: 100%;
-  max-width: 14vw;
+  max-width: 20vw;
+  max-height: 28vh;
+  width: auto;
   height: auto;
 }
-
+.not-my-card {
+  max-width: 10vw;
+}
 .table {
-  width: 75%;
   margin: auto 2em;
 }
-
 .game {
   margin: auto;
 }
@@ -36,21 +33,21 @@ img {
 .player-name {
   margin: 1em;
 }
-
 .tableAndInfo {
   border-top: 0.5px solid gainsboro;
   padding-top: 0.5em;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding: 0 2em;
 }
 .info {
-  vertical-align: center;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   margin: 2em;
-  max-width: 25%;
 }
-
 .chosen {
   -webkit-box-shadow: 3px 3px 11px 3px rgba(13, 13, 13, 0.28);
   -moz-box-shadow: 3px 3px 11px 3px rgba(13, 13, 13, 0.28);
@@ -62,19 +59,10 @@ button {
   border-radius: 3px;
   font-size: medium;
 }
-
-.not-my-card {
-  max-width: 80px;
-}
 .description2 {
   display: flex;
   flex-direction: row;
 }
-
 .description2 p {
   margin: auto 1em;
-}
-.someone img {
-  width: 30%;
-  margin: auto;
 }
