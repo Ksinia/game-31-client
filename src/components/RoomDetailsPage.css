@@ -8,6 +8,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  max-width: 100%;
 }
 
 .someone {
@@ -16,7 +17,8 @@
 
 img {
   width: 100%;
-  max-width: 100px;
+  /* max-width: 100px; */
+  max-width: 13vw;
   height: auto;
 }
 
@@ -63,7 +65,7 @@ button {
 }
 
 .not-my-card {
-  max-width: 60px;
+  max-width: 80px;
 }
 .description2 {
   display: flex;
@@ -72,4 +74,8 @@ button {
 
 .description2 p {
   margin: auto 1em;
+}
+.someone img {
+  width: 30%;
+  margin: auto;
 }
