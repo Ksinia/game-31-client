@@ -19,6 +19,7 @@ img {
 }
 .not-my-card {
   max-width: 10vw;
+  max-height: 20vh;
 }
 .table {
   margin: auto 2em;
