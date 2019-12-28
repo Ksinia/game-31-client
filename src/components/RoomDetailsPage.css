@@ -17,13 +17,12 @@
 
 img {
   width: 100%;
-  /* max-width: 100px; */
-  max-width: 13vw;
+  max-width: 16vw;
   height: auto;
 }
 
 .table {
-  width: 70%;
+  width: 80%;
   margin: auto 2em;
 }
 

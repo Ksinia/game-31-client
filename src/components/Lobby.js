@@ -30,7 +30,6 @@ function Lobby(props) {
           name="name"
           onChange={props.onChange}
           value={props.values.name}
-          autoFocus
         ></input>
         <label htmlFor="maxPlayers">
           {" "}
