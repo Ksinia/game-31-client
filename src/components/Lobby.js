@@ -6,19 +6,16 @@ import { colors } from "../colors";
 
 function Lobby(props) {
   const rooms = (
-    <GridList
-      // cellHeight={220}
-      cols={6}
-    >
+    <div className="rooms">
       {props.rooms.map(room => (
-        <GridListTile key={room.id} cols={2}>
+        <div className="room" key={room.id}>
           <RoomTile
             style={{ background: colors[room.id % colors.length] }}
             room={room}
           />
-        </GridListTile>
+        </div>
       ))}
-    </GridList>
+    </div>
   );
 
   return (

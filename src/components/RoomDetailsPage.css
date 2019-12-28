@@ -6,53 +6,27 @@
 
 .others {
   display: flex;
-  flex-flow: row;
-  justify-content: space-evenly;
-  max-height: 30%;
-  max-width: 50%;
-  margin: auto;
-}
-.pot {
-  display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
-  /* max-height: 30%; */
-  max-width: 50%;
-  margin: auto;
-}
-.hand {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  /* max-height: 30%; */
-  max-width: 50%;
-  margin: auto;
+  justify-content: center;
 }
 
 .someone {
-  height: 100%;
-  display: flex;
-  flex-flow: row;
-  justify-content: space-evenly;
   margin: 0 1em;
 }
 
 img {
-  /* max-width: 80px; */
-  max-height: 100%;
-  max-width: 30%;
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 100px;
+  height: auto;
 }
 
 .table {
-  width: 50%;
-  margin: auto;
+  width: 70%;
+  margin: auto 2em;
 }
 
 .game {
-  text-align: center;
   margin: auto;
-  max-height: 500px;
 }
 .players2 {
   display: flex;
@@ -67,12 +41,13 @@ img {
   padding-top: 0.5em;
   display: flex;
   flex-direction: row wrap;
+  justify-content: flex-start;
 }
 .info {
   vertical-align: center;
   text-align: center;
   margin: 2em;
-  width: 25%;
+  max-width: 25%;
 }
 
 .chosen {
