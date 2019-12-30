@@ -246,7 +246,7 @@ class RoomDetailsPage extends Component {
                     <div>
                       Score:
                       {room.users.map(user => {
-                        const sc = this.props.score[user.id];
+                        const sc = room.score[user.id];
                         return (
                           <p>
                             {user.name}: {sc}
@@ -267,8 +267,7 @@ class RoomDetailsPage extends Component {
 function MapStateToProps(state) {
   return {
     user: state.user,
-    rooms: state.lobby,
-    score: state.score
+    rooms: state.lobby
   };
 }
 export default connect(MapStateToProps)(RoomDetailsPage);
